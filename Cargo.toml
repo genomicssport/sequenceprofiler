@@ -1,0 +1,9 @@
+[package]
+name = "graph-clusters"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.28", features = ["derive"] }
+derive = "1.0.0"
+features = "0.10.0"
