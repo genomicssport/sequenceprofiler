@@ -2,6 +2,11 @@
 name = "graph-kmers"
 version = "0.1.0"
 edition = "2021"
+readme = "README.md"
+license = "MIT"
+description = "sequence similarity based on identity kmers"
+homepage = "https://github.com/sciencegenome/graph-kmer"
+repository = "https://github.com/sciencegenome/graph-kmer"
 
 [dependencies]
 clap = { version = "4.5.28", features = ["derive"] }
