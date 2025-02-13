@@ -1,6 +1,5 @@
-use crate::filestruct::Collector;
+use crate::filestruct::CollectIter;
 use crate::filestruct::Genomeiter;
-use crate::filestruct::ProfileKmer;
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::File;
@@ -39,7 +38,7 @@ pub fn profilesimilarity(path: &str, kmer: &str) -> Result<String, Box<dyn Error
         })
     }
 
-    let mut seqbtreemap: Vec<(String, Vec<String>)> = Vec::new();
+    let mut seqbtreemap: Vec<(String, (String, Vec<String>))> = Vec::new();
     for i in combinedinfo.iter() {
         let windowkmer: Vec<_> = i
             .sequence
@@ -54,56 +53,71 @@ pub fn profilesimilarity(path: &str, kmer: &str) -> Result<String, Box<dyn Error
             .collect::<HashSet<String>>()
             .into_iter()
             .collect::<Vec<_>>();
-        seqbtreemap.push((i.sequence.clone(), sequencehash));
+        seqbtreemap.push((i.header.clone(), (i.sequence.clone(), sequencehash)));
     }
 
-    /*
-      This is the change for the one to many comparison across the chained iteration and
-      then listing out the iteration identity.
-
-    */
-
-    let mut newbase: Vec<ProfileKmer> = Vec::new();
-    let mut shared: Vec<Collector> = Vec::new();
+    let mut newbase: Vec<Vec<CollectIter>> = Vec::new();
     for i in 0..seqbtreemap.len() - 1 {
-        let mut countkmer: usize = 0usize;
+        let mut shared: Vec<CollectIter> = Vec::new();
         let vec = seqbtreemap[i].clone();
         let restvec: Vec<_> = seqbtreemap[i + 1usize..seqbtreemap.len()]
             .iter()
             .collect::<Vec<_>>();
         for restvectiter in 0..restvec.len() {
-            for itercount in 0..vec.1.len() {
+            let mut countkmer: usize = 0usize;
+            for itercount in 0..vec.1 .1.len() {
                 if restvec[restvectiter]
                     .1
-                    .contains(&vec.1[itercount].to_string())
+                     .1
+                    .contains(&vec.1 .1[itercount].to_string())
                 {
                     countkmer += 1usize;
                 }
             }
-            shared.push(Collector {
+            shared.push(CollectIter {
                 name: vec.0.clone(),
-                id: restvec[restvectiter].0.clone(),
+                namenext: restvec[restvectiter].0.clone(),
+                id: vec.1 .0.clone(),
+                idnext: restvec[restvectiter].1 .0.clone(),
                 count: countkmer,
+                shared: vec.1 .1.len() + restvec[restvectiter].1 .1.len(),
             });
         }
-
-        let sharedvalue: usize = seqbtreemap[i].1.len() + seqbtreemap[i + 1].1.len();
-        newbase.push(ProfileKmer {
-            name: seqbtreemap[i].0.clone(),
-            sequence: seqbtreemap[i].1.clone(),
-            count: countkmer,
-            shared: sharedvalue,
-            ratio: countkmer / sharedvalue * 100,
-        });
+        newbase.push(shared);
     }
+
     let mut filewrite = File::create("sequence-clusters.fasta").expect("file not found");
     for i in newbase.iter() {
-        writeln!(
-            filewrite,
-            "{:?}\t{:?}\t{:?}\t{:?}",
-            i.name, i.count, i.shared, i.ratio
-        )
-        .expect("file not found");
+        for j in i.iter() {
+            writeln!(
+                filewrite,
+                "{:?}\t{:?}\t{:?}\t{:?}\t{:?}\t{:?}\t{:?}",
+                j.name,
+                j.namenext,
+                j.id,
+                j.idnext,
+                j.count,
+                j.shared,
+                j.count as f32 / j.shared as f32 * 100.0
+            )
+            .expect("file not found");
+        }
+    }
+
+    let mut filesecondwrite = File::create("frequencies-tab.txt").expect("file not present");
+    for i in newbase.iter() {
+        for j in i.iter() {
+            writeln!(
+                filesecondwrite,
+                "{:?}\t{:?}\t{:?}\t{:?}\t{:?}",
+                j.name,
+                j.namenext,
+                j.count,
+                j.shared,
+                j.count as f32 / j.shared as f32 * 100.0
+            )
+            .expect("file not found");
+        }
     }
     Ok(
         "The sequence similarity scores and the cluster of the sequences have been written"

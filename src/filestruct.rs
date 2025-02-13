@@ -7,18 +7,11 @@ pub struct Genomeiter {
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 
-pub struct Collector {
+pub struct CollectIter {
     pub name: String,
+    pub namenext: String,
     pub id: String,
-    pub count: usize,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
-
-pub struct ProfileKmer {
-    pub name: String,
-    pub sequence: Vec<String>,
+    pub idnext: String,
     pub count: usize,
     pub shared: usize,
-    pub ratio: usize,
 }

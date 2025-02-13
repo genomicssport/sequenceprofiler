@@ -9,11 +9,20 @@ pub struct CommandParse {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// profile the similarity based on the observed kmer
+    /// identity kmer similarity index
     Sequence {
         /// provide the path to sequence file
         sequencepath: String,
         /// provide the kmer to be profiled for the sequence similarity
         sequencekmer: String,
+    },
+    /// identity kmer filter
+    Filter {
+        /// provide the path to the sequence file
+        sequence: String,
+        /// sequence kmer for the identity kmer
+        kmer: String,
+        /// provide the threshold
+        threshold: String,
     },
 }
