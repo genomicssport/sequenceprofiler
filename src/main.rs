@@ -1,12 +1,18 @@
 mod args;
 mod filestruct;
+mod jellyfish;
+mod longread;
+mod sentence;
 mod simfilter;
 mod similarity;
 use crate::args::CommandParse;
 use crate::args::Commands;
+use crate::longread::kmer_fasta;
+use crate::sentence::profilesseq;
 use crate::simfilter::simfilterarg;
 use crate::similarity::profilesimilarity;
 use clap::Parser;
+use jellyfish::kmer_jellyfish;
 
 /*
   Author Gaurav Sablok
@@ -34,6 +40,27 @@ fn main() {
         } => {
             let command = simfilterarg(sequence, kmer, threshold).unwrap();
             println!("The filtered files have been written: {:?}", command);
+        }
+        Commands::SequenceSeq {
+            sequencepath,
+            sequencekmer,
+        } => {
+            let command = profilesseq(sequencepath, sequencekmer).unwrap();
+            println!("The sequence similarity has been profiled:{:?}", command);
+        }
+        Commands::Jellyfish { fastqfile, kmer } => {
+            let command = kmer_jellyfish(fastqfile, *kmer).unwrap();
+            println!(
+                "The jellyfish count has been completed the and the file has been written:{:?}",
+                command
+            );
+        }
+        Commands::OriginKmer { fastafile, kmer } => {
+            let command = kmer_fasta(fastafile.to_string(), *kmer).unwrap();
+            println!(
+                "The kmer file from the given input has been written:{:?}",
+                command
+            );
         }
     }
 }

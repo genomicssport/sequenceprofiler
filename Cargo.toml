@@ -1,12 +1,13 @@
 [package]
-name = "graph-kmers"
+name = "sequenceprofiler"
 version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 license = "MIT"
-description = "sequence similarity based on identity kmers"
-homepage = "https://github.com/sciencegenome/graph-kmer"
-repository = "https://github.com/sciencegenome/graph-kmer"
+authors = [ "Gaurav Sablok <gauravcodepro@gmail.com>"]
+description = "sequence similarity based on identity kmers and all sequence profiling under one rust crate"
+homepage = "https://github.com/sciencegenome/sequenceprofiler"
+repository = "https://github.com/sciencegenome/sequenceprofiler"
 
 [dependencies]
 clap = { version = "4.5.28", features = ["derive"] }

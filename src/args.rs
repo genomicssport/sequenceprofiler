@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
 #[derive(Debug, Parser)]
-#[command(name = "graph-kmers", version = "1.0", about = "graphkmers")]
+#[command(name = "sequenceprofiler", version = "1.0", about = "sequenceprofiler")]
 pub struct CommandParse {
     /// subcommands for the specific actions
     #[command(subcommand)]
@@ -24,5 +24,26 @@ pub enum Commands {
         kmer: String,
         /// provide the threshold
         threshold: String,
+    },
+    /// compare seq to other seq 1-1 iteration
+    SequenceSeq {
+        /// provide the path to sequence file
+        sequencepath: String,
+        /// provide the kmer to be profiled for the sequence similarity
+        sequencekmer: String,
+    },
+    /// jellyfish counter for the long reads
+    Jellyfish {
+        /// please provide the path to be searched for the strings containing the kmer
+        fastqfile: String,
+        /// please provide the kmer to be searched for the origin
+        kmer: usize,
+    },
+    /// finding the origin of kmers
+    OriginKmer {
+        /// please provide the path to be searched for the strings containing the kmer
+        fastafile: String,
+        /// please provide the kmer to be searched for the origin
+        kmer: usize,
     },
 }
