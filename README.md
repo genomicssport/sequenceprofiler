@@ -1,4 +1,5 @@
 # sequenceprofiler
+
  - This crate has the following features: fasta file should be a linear fasta and not a multi line fasta just like long-read.
  - Sequence, which allows based on the similarity of the shared unique kmers and also allows for the filtering of the sequences so that you can build a native index graph faster.
  - SequenceSeq, which allows for the sequence similarity on a sequence to next iter sequence. 
@@ -6,13 +7,20 @@
  - Jellyfish: a rust implementation of the jellyfish for the counts.Outputs both the unique counts, all counts.It will produce allkmers, uniquekmers, countkmers
  - The can be installed via crate: [sequenceprofiler](https://crates.io/crates/sequenceprofiler)
 
+ - To install windows version:
+ ```
+rustup component add llvm-tools
+rustup target add x86_64-pc-windows-msvc
+git clone https://github.com/IBCHgenomic/ensemblcov.git
+cd ensemblcov
+cargo xwin build --target x86_64-pc-windows-msvc
+ ```
  
  ```
  cargo build 
  
  ```
  ```
- gauravsablok@genome graph-kmer main ? ./target/debug/sequenceprofiler
  sequenceprofiler
 
  Usage: sequenceprofiler <COMMAND>
@@ -31,7 +39,6 @@
  ```
  - to run the compiled library
   
-
  ```
 ./target/debug/sequenceprofiler sequence
      ./samplefile/sequence-sample-files/sample.fasta 4
@@ -43,5 +50,6 @@
           ./samplefile/jellyfish-sample-files/test.fastq 4
 ```
 
- Gaurav Sablok
+Gaurav Sablok Instytut Chemii Bioorganicznej Polskiej Akademii Nauk ul. Noskowskiego 12/14 | 61-704, Poznań Poland
+
 
