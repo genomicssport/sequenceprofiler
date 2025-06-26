@@ -1,5 +1,7 @@
 # sequenceprofiler
 
+<img src="https://github.com/IBCHgenomic/sequenceprofiler/blob/main/sequenceprofiler.png" width="350" />
+
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
  - This crate has the following features: fasta file should be a linear fasta and not a multi line fasta just like long-read.
