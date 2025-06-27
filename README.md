@@ -9,7 +9,7 @@
  - SequenceSeq, which allows for the sequence similarity on a sequence to next iter sequence. 
  - longread: finding the origin of the kmers.Back to sequences:Find the origin of 𝑘-mers DOI: 10.21105/joss.07066. Output a table for the direct ingestion into any graphs. Outputs a sam type file with the distinct count of the kmers and can be used for the jellyfish count.Support both the genome and the longread fasta file. 
  - Jellyfish: a rust implementation of the jellyfish for the counts.Outputs both the unique counts, all counts.It will produce allkmers, uniquekmers, countkmers
- - The can be installed via crate: [sequenceprofiler](https://crates.io/crates/sequenceprofiler)
+
 
  - To install windows version:
  ```
