@@ -1,8 +1,6 @@
 # sequenceprofiler
 
-<img src="https://github.com/IBCHgenomic/sequenceprofiler/blob/main/sequenceprofiler.png" width="350" />
-
-![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
+<img src="https://github.com/IBCHgenomic/sequenceprofiler/blob/main/sequenceprofiler.png" width="100" />
 
  - This crate has the following features: fasta file should be a linear fasta and not a multi line fasta just like long-read.
  - Sequence, which allows based on the similarity of the shared unique kmers and also allows for the filtering of the sequences so that you can build a native index graph faster.
