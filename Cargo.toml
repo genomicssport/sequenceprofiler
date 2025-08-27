@@ -1,15 +1,17 @@
 [package]
 name = "sequenceprofiler"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 readme = "README.md"
 license = "MIT"
-authors = [ "Gaurav Sablok <gsablok@ibch.poznan.pl>"]
+authors = ["Gaurav Sablok <gsablok@ibch.poznan.pl>"]
 description = "sequence similarity based on identity kmers and all sequence profiling under one rust crate"
-homepage = "https://github.com/IBCHgenomic/sequenceprofiler"
-repository = "https://github.com/IBCHgenomic/sequenceprofiler"
+homepage = "https://github.com/genomicssport/sequenceprofiler"
+repository = "https://github.com/genomicssport/sequenceprofiler"
 
 [dependencies]
 clap = { version = "4.5.28", features = ["derive"] }
 derive = "1.0.0"
 features = "0.10.0"
+figlet-rs = "0.1.5"
+tokio = { version = "1.47.1", features = ["full"] }

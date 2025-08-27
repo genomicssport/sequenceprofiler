@@ -11,10 +11,14 @@ SLB Potsdam
 Date 2025-2-22
 
 A kmer origin finding faster than the recent implementation of the recent implementation
-Back to sequences: Find the origin of 𝑘-mers DOI: 10.21105/joss.07066. To make it faster, it first uses the kmer iterations to make the kmer and then it uses the  the uniques hashes to search across the given file. This outputs a table showing the sequence, kmer and the start and the end position.
+Back to sequences: Find the origin of 𝑘-mers DOI: 10.21105/joss.07066.
+To make it faster, it first uses the kmer iterations
+to make the kmer and then it uses the  the uniques hashes to search across the given file.
+This outputs a table showing the sequence, kmer and the start and the end position.
 */
 
-pub fn kmer_fasta(fastqfile: String, kmer: usize) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn kmer_fasta(fastqfile: String, kmer: usize) -> Result<String, Box<dyn Error>> {
     let f = File::open(fastqfile).expect("file not present");
     let read = BufReader::new(f);
     let mut header: Vec<String> = vec![];

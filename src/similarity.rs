@@ -17,7 +17,8 @@ use std::io::{BufRead, BufReader, Write};
           number of the total unique kmer * 100
 */
 
-pub fn profilesimilarity(path: &str, kmer: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn profilesimilarity(path: &str, kmer: &str) -> Result<String, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut sequencevector: Vec<String> = Vec::new();

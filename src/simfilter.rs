@@ -17,7 +17,12 @@ use std::io::{BufRead, BufReader, Write};
           number of the total unique kmer * 100
 */
 
-pub fn simfilterarg(path: &str, kmer: &str, threshold: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn simfilterarg(
+    path: &str,
+    kmer: &str,
+    threshold: &str,
+) -> Result<String, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut sequencevector: Vec<String> = Vec::new();

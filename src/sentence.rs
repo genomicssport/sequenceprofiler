@@ -22,7 +22,8 @@ use std::io::{BufRead, BufReader, Write};
  and de bruijns graph from the same would not be of much value.
 */
 
-pub fn profilesseq(path: &str, kmer: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn profilesseq(path: &str, kmer: &str) -> Result<String, Box<dyn Error>> {
     let fileopen = File::open(path).expect("file not found");
     let fileread = BufReader::new(fileopen);
     let mut sequencevector: Vec<String> = Vec::new();
